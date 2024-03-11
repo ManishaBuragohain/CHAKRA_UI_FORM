@@ -1,11 +1,11 @@
 import { useFormContext } from "react-hook-form";
 import { Box, Text } from "@chakra-ui/react";
+import { isdCode } from "../../config";
 
 const UserDetails = () => {
   const { watch } = useFormContext();
   const watchedValue = watch();
   console.log("watchedValue", watchedValue);
-  const isdCode = "+91";
   return (
     <>
       <Box

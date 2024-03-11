@@ -22,6 +22,7 @@ import {
 import { CreatableSelect } from "chakra-react-select";
 import { useState } from "react";
 import UserDetails from "../UserDetails/UserDetails";
+import { isdCode } from "../../config";
 
 type FormValues = {
   firstName: string;
@@ -38,7 +39,7 @@ const genderOptions = [
   { value: "female", label: "Female" },
   { value: "other", label: "Other" },
 ];
-const isdCode = "+91";
+// const isdCode = "+91";
 
 const schema = yup.object().shape({
   firstName: yup.string().required("First name is required"),
@@ -72,10 +73,7 @@ export const UserForm = () => {
   const techOptions = [{ value: "javascript", label: "JavaScript" }];
   const methods = useForm<FormValues>({
     resolver: yupResolver<FormValues>(schema),
-    defaultValues: {
-      gender: "",
-      techStack: [techOptions[0]],
-    },
+    defaultValues: { gender: "", techStack: [techOptions[0]] },
   });
   const {
     register,
@@ -84,8 +82,8 @@ export const UserForm = () => {
     formState: { errors },
     reset,
   } = methods;
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setIsLoading(true);
@@ -119,7 +117,7 @@ export const UserForm = () => {
                 <Input
                   id="firstName"
                   placeholder="First Name"
-                  {...register("firstName")}
+                  {...register("firstName")} // instead of onchange method
                 />
                 <FormErrorMessage>{errors.firstName?.message}</FormErrorMessage>
               </FormControl>
@@ -148,6 +146,7 @@ export const UserForm = () => {
                   <InputLeftAddon>{isdCode}</InputLeftAddon>
                   <Input
                     id="phone"
+                    type="number"
                     placeholder="Phone number"
                     {...register("phone")}
                   />
@@ -197,7 +196,7 @@ export const UserForm = () => {
               <FormLabel htmlFor="techStack">Tech Stack</FormLabel>
               <Controller
                 name="techStack"
-                control={control}
+                control={control} // coming from method
                 render={({ field }) => {
                   const { onChange, value } = field;
                   const mandatoryValue = techOptions[0];
