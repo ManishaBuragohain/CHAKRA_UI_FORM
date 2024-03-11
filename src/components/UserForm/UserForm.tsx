@@ -175,7 +175,9 @@ export const UserForm = () => {
                     />
                   )}
                 />
-                <FormErrorMessage>{errors.gender?.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.gender && "Gender is required"}
+                </FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={!!errors.dateOfBirth} mt={4}>
@@ -186,7 +188,7 @@ export const UserForm = () => {
                   {...register("dateOfBirth")}
                 />
                 <FormErrorMessage>
-                  {errors.dateOfBirth?.message}
+                  {errors.dateOfBirth && "Date of birth is required"}
                 </FormErrorMessage>
               </FormControl>
             </Flex>
